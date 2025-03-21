@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS作业</title>
+  <!-- 外部样式表 -->
+  <link rel="stylesheet" href="E:\00\-00\作业引用.css" />
+  <!-- 内部样式表 -->
+  <style>
+    body {
+      font-family: "Microsoft YaHei", sans-serif;
+      margin: 0 auto;
+      max-width: 800px;
+      padding: 20px;
+      background-color: #f8f8f8;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* 导航栏样式 */
+    .nav-container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      position: sticky;
+      top: 10px;
+      z-index: 100;
+    }
+    
+    .nav {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+    }
+    
+    .nav a {
+      text-decoration: none;
+      color: #444;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .nav a:hover {
+      background-color: #f0f0f0;
+      color: #ff6600;
+    }
+    
+    h1 {
+      font-family: 宋体;
+      color: rgb(33, 31, 176);
+      text-align: center;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+      margin-top: 20px;
+      position: relative;
+    }
+    
+    h1::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background-color: rgb(33, 31, 176);
+    }
+    
+    p {
+      text-indent: 2em;
+      line-height: 1.8em;
+      margin-bottom: 20px;
+      letter-spacing: 0.05em;
+    }
+    
+    /* 为每个文字添加背景效果 */
+    span {
+      display: inline-block;
+      background-color: #f0f8ff;
+      padding: 2px 4px;
+      margin: 0 1px;
+      border-radius: 3px;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+    
+    span:hover {
+      transform: translateY(-2px);
+      background-color: #e6f0ff;
+    }
+    
+    /* 类选择符 */
+    .abstract {
+      font-size: 15px;
+      background-color: #f0f0f0;
+      padding: 15px;
+      border-left: 4px solid #ccc;
+      border-radius: 0 5px 5px 0;
+      position: relative;
+      margin: 25px 0;
+    }
+    
+    .abstract::before {
+      content: "摘要";
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      background-color: #f8f8f8;
+      padding: 0 10px;
+      font-size: 12px;
+      color: #888;
+    }
+    
+    .abstract span {
+      background-color: #ffe8e8;
+    }
+    
+    h2 {
+      color: rgb(160, 38, 123);
+      margin-top: 30px;
+      margin-bottom: 15px;
+      padding-left: 10px;
+      border-left: 4px solid rgb(160, 38, 123);
+    }
+    
+    #CSSbase {
+      color: darkgreen;
+      border-bottom: 1px dashed #aaa;
+      padding-bottom: 5px;
+      border-left: 4px solid darkgreen;
+    }
+    
+    a:link {
+      color: rgb(87, 87, 197);
+      text-decoration: none;
+      background-color: #e6e6ff;
+      padding: 2px 5px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+    
+    a:visited {
+      color: darkgrey;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+      color: #ff6600;
+      background-color: #fff0e6;
+    }
+    
+    /* 照片展示区样式 */
+    .photo-gallery {
+      margin: 30px 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 15px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .photo-item {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .photo-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+    
+    .photo-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    
+    .photo-item:hover img {
+      transform: scale(1.05);
+    }
+    
+    .photo-caption {
+      padding: 12px;
+      background-color: white;
+      text-align: center;
+      font-size: 14px;
+      border-top: 1px solid #f0f0f0;
+      font-weight: 500;
+    }
+    
+    /* 页脚样式 */
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #ddd;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <div class="nav-container">
+    <div class="nav">
+      <a href="#CSSbase">CSS基础</a>
+      <a href="#photo-section">照片展示</a>
+      <a href="#selector-section">选择符</a>
+    </div>
+  </div>
+
+  <!-- 内嵌样式表 -->
+  <h1 style="color: darkblue">学无止境</h1>
+  
+  <h2 id="CSSbase">励志语录</h2>
+  <p class="abstract">
+    <span>山</span><span>有</span><span>顶</span><span>峰</span><span>，</span>
+    <span>湖</span><span>有</span><span>彼</span><span>岸</span><span>。</span>
+    <span>在</span><span>人</span><span>生</span><span>漫</span><span>漫</span><span>长</span><span>途</span><span>中</span><span>，</span>
+    <span>万</span><span>物</span><span>皆</span><span>有</span><span>回</span><span>转</span><span>。</span>
+    <span>当</span><span>我</span><span>们</span><span>觉</span><span>得</span><span>余</span><span>味</span><span>苦</span><span>涩</span><span>，</span>
+    <span>请</span><span>你</span><span>相</span><span>信</span><span>一</span><span>切</span><span>终</span><span>有</span><span>回</span><span>甘</span><span>。</span>
+  </p>
+  
+  <p>
+    <span>世</span><span>间</span><span>很</span><span>多</span><span>美</span><span>好</span><span>的</span><span>事</span><span>物</span><span>并</span><span>非</span><span>是</span><span>触</span><span>手</span><span>可</span><span>及</span><span>的</span><span>，</span><span>经</span><span>过</span><span>了</span><span>时</span><span>间</span><span>的</span><span>酝</span><span>酿</span><span>和</span><span>打</span><span>磨</span><span>，</span><span>等</span><span>待</span><span>的</span><span>结</span><span>果</span><span>才</span><span>会</span><span>显</span><span>得</span><span>更</span><span>加</span><span>珍</span><span>贵</span><span>。</span>
+  </p>
+  
+  <!-- 照片展示区 -->
+  <h2 id="photo-section">照片展示</h2>
+  <div class="photo-gallery">
+    <div class="photo-item">
+      <img src="C:\Users\lenovo\Desktop\2 (1).jpg" alt="风景照片1">
+      <div class="photo-caption">无畏契约</div>
+    </div>
+    <div class="photo-item">
+      <img src="C:\Users\lenovo\Desktop\1.jpg" alt="风景照片2">
+      <div class="photo-caption">无畏契约</div>
+    </div>
+    <div class="photo-item">
+      <img src="C:\Users\lenovo\Desktop\4.jpg" alt="风景照片3">
+      <div class="photo-caption">无畏契约</div>
+    </div>
+    <div class="photo-item">
+      <img src="C:\Users\lenovo\Desktop\3.jpg" alt="风景照片4">
+      <div class="photo-caption">无畏契约</div>
+    </div>
+  </div>
+  
+  <h2 id="selector-section"></h2>
+  <p>
+    <span>这</span><span>是</span><span>一</span><span>个</span><span>好</span><span>玩</span><span></span><span>的</span><span>东</span><span>西</span>
+    <a href="https://www.news.cn/politics/20250312/af43fad9398c4610a81fbb05fae17bd7/c.html">
+      
+    </a><span>。</span>
+    <span>想</span><span>玩</span><span>嘛</span><span>小</span><span>可</span><span>爱</span>
+    <a href="https://www.liblib.art/sd">
+     这是学习文件 
+    </a><span>。</span>
+    <span>请</span><span>好</span><span>好</span><span>学</span><span>习</span><span>谢</span><span>谢</span><span>。</span>
+  </p>
+
+  <!-- 页脚 -->
+  <footer>
+    © 2023 CSS练习作业 | 设计与制作
+  </footer>
+</body>
+</html>
