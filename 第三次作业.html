@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS 第三次作业</title>
+  <style>
+    body {
+      background-color: #65a09896;
+      font-family: Arial, sans-serif;
+      background-image: linear-gradient(45deg, #f3f3f3 25%, transparent 25%, transparent 75%, #f3f3f3 75%, #f3f3f3),
+                        linear-gradient(45deg, #f3f3f3 25%, transparent 25%, transparent 75%, #f3f3f3 75%, #f3f3f3);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+    }
+
+    h1 {
+      background-image: url("images/第三次作业素材.jpg");
+      background-position: 60% 60%;
+      background-repeat: no-repeat;
+      text-align: center;
+      padding: 50px 0;
+      font-size: 2em;
+      color: #333;
+    }
+
+    section {
+      margin: 20px 0;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .box {
+      width: 400px;
+      height: 400px;
+      border: dashed rgb(78, 129, 192) 2px;
+      padding: 20px;
+      margin-bottom: 2em;
+      border-radius: 20px;
+      display: inline-block;
+      margin-right: 10px;
+      text-align: center;
+      line-height: 400px;
+      animation: moveLeftRight 3s infinite alternate;
+    }
+
+    @keyframes moveLeftRight {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(100px);
+      }
+    }
+
+    .display-demo p {
+      display: inline;
+      margin-right: 10px;
+      font-size: 1.1em;
+    }
+
+    .flex-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .flex-container p {
+      border: 1px solid rgb(64, 58, 174);
+      margin-right: 1em;
+      padding: 10px;
+      font-size: 1.1em;
+    }
+
+    .animate-box {
+      width: 100px;
+      height: 100px;
+      background-color: rgb(192, 184, 184);
+      text-align: center;
+      line-height: 100px;
+      margin-top: 2em;
+      border-radius: 0;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .animate-box:hover {
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  color: rgb(17, 12, 137);
+  background-color: rgb(255, 8, 8);
+
+      color: rgb(17, 12, 137);
+      background-color: rgb(242, 255, 0);
+    }
+
+    .image-display {
+      width: 100%;
+      max-width: 1200px;
+      display: block;
+      margin: 0 auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-container p {
+      text-align: center;
+      font-size: 1.5em;
+      margin-top: 10px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>CSS 第三次作业</h1>
+  e>
+  </section>
+
+  <style>
+    
+    .box {
+      width: 400px;
+      height: 400px;
+      border: dashed rgb(78, 129, 192) 2px;
+      padding: 20px;
+      margin-bottom: 2em;
+      border-radius: 20px;
+      display: inline-block;
+      margin-right: 10px;
+      text-align: center;
+      line-height: 400px;
+      animation: moveFullWidth 5s infinite alternate; /* 修改动画属性 */
+    }
+  
+    @keyframes moveFullWidth {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(100vw); /* 移动整个画面的距离 */
+      }
+    }
+    
+  </style>
+  <body>
+    
+    <section>
+      
+    <h2>游戏代打请看这里</h2>
+    <div>
+      <div class="box">
+        <img src="C:\Users\lenovo\Desktop\6.jpg" alt="永劫无间代打" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="box">
+        <img src="C:\Users\lenovo\Desktop\7.jpg" alt="永劫无间代玩" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>如何去玩呢宝贝</h2>
+    <article>
+      <h3>上w下是s，左a右d你记住，左键平导右键竖你记住</h3>
+      <div class="display-demo">
+        <p>聚窟洲</p>
+        <p>火罗国</p>
+        <p>永劫无间</p>
+      </div>
+    </article>
+  </section>
+  <section>
+    <h2>动画</h2>
+    <p>动画是不是很好看，给个666</p>
+
+    <div class="animate-box">一起来看看盒子内容吧</div>
+ 
+  </section>
+  <section>
+    <h2>图片展示</h2>
+    <div class="image-container">
+      <img src="C:\Users\lenovo\Desktop\第三次作业素材3.jpg" alt="示例图片" class="image-display">
+      <p>纪莹莹</p>
+    </div>
+    <div class="image-container">
+      <img src="C:\Users\lenovo\Desktop\作业素材7.jpg" alt="示例图片" class="image-display">
+      <p>季沧海</p>
+    </div>
+    <div class="image-container">
+      <img src="C:\Users\lenovo\Desktop\水娘素材.webp" alt="示例图片" class="image-display">
+      <p>水娘</p>
+    </div>
+    <div class="image-container">
+      <img src="C:\Users\lenovo\Desktop\岳山素材.jpg" alt="示例图片" class="image-display">
+      <p>岳山</p>
+
+    </div>
+  </section>
+</body>
+</html>
