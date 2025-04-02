@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>今天我要开始学习java了</title>
+<script>
+    let a = 200
+    console.log(a)
+    const api_key = 'abcd-1234-efgh'
+    console.log(api_key)
+    console.log(typeof a, typeof api_key, typeof false)
+    let b = '2'
+    console.log(a + b)
+    console.log(a + Number(b))
+    let c = '200'
+    console.log(typeof a, typeof c)
+    console.log(a == c)
+    console.log(a === c)
+    let current_time = '15:30'
+    if (current_time == '15:30') {
+        console.log('出发去运动！')
+    } else {
+        console.log('继续工作...')
+    }
+    for (let i = 5; i <= 15; i++) {
+        console.log(i)
+    }
+    let energy = 80
+    while (energy > 0) {
+        console.log('保持活力...')
+        energy = energy - 20
+    }
+    function greeting() {
+        console.log('欢迎来到我的世界！')
+    }
+    greeting()
+    function showInfo(info) {
+        console.log('家人们这个有些难啊： ' + String(info))
+    }
+    console.log(typeof showInfo('这是新的参数'))
+    function combineInfo(info1, info2) {
+        console.log('组合信息： ' + String(info1) + String(info2))
+    }
+    combineInfo('number1', 'number2', 666)
+    function processData(data) {
+        console.log(data)
+        return data + '处理后的结果'
+    }
+    processData('数据处理函数')
+    let output = processData('数据处理函数')
+    console.log(output)
+</script>
+</head>
+<body>
+</body>
+</html>
