@@ -1,0 +1,58 @@
+<script>
+    // 类和对象
+    class Smartphone {
+        constructor(brand, model, os) {
+            this.brand = brand
+            this.model = model
+            this.os = os
+        }
+        powerOn() {
+            console.log(`${this.brand} ${this.model} 开机中...`)
+        }
+        powerOff() {
+            console.log(`${this.brand} ${this.model} 正在关机`)
+        }
+    }
+    let myPhone = new Smartphone('Huawei', 'Mate60', 'HarmonyOS')
+    myPhone.powerOn()
+    myPhone.powerOff()
+
+    class GamingPhone extends Smartphone {
+        constructor(brand, model, os, gpu) {
+            super(brand, model, os)
+            this.gpu = gpu
+        }
+        playGame() {
+            console.log(`${this.brand} ${this.model} 正在运行3A游戏`)
+        }
+    }
+    let gamingPhone = new GamingPhone('ROG', 'Phone7', 'Android', 'Adreno740')
+    gamingPhone.powerOn()
+    gamingPhone.playGame()
+
+    // 异步操作示例
+    console.log('开始系统检测')
+
+    setTimeout(function() {
+        console.log('系统检测完成')
+    }, 1500)
+
+    console.log('正在检测硬件...')
+</script>
+
+<body>
+    <h1 onclick="alert('设备信息')">智能设备控制台</h1>
+    <div id="deviceStatus">设备状态: 待机</div>
+</body>
+
+<script>
+    let statusDiv = document.getElementById('deviceStatus')
+    console.log(statusDiv)
+    
+    statusDiv.innerHTML = '设备状态: 运行中'
+    statusDiv.style.color = '#4CAF50'
+    
+    statusDiv.onclick = function() {
+        alert('设备状态已更新')
+    }
+</script>
