@@ -1,0 +1,76 @@
+<script>
+    // 类和对象
+    // 1. 定义一个游戏角色类
+    class GameCharacter {
+        constructor(name, level, weapon, health) {
+            this.name = name;
+            this.level = level;
+            this.weapon = weapon;
+            this.health = health;
+        }
+        
+        attack(target = "怪物") {
+            console.log(`${this.name}使用${this.weapon}攻击${target}！`);
+        }
+        
+        heal() {
+            console.log(`${this.name}正在恢复生命值`);
+        }
+    }
+
+    // 2. 创建游戏角色对象
+    let warrior = new GameCharacter("战士", 15, "长剑", 200);
+    warrior.attack("巨龙");
+    warrior.heal();
+
+    // 定义Boss类继承自GameCharacter
+    class Boss extends GameCharacter {
+        constructor(name, level, weapon, health, specialSkill, difficulty) {
+            super(name, level, weapon, health);
+            this.specialSkill = specialSkill;
+            this.difficulty = difficulty;
+        }
+
+        useSpecialSkill() {
+            console.log(`${this.name}发动了${this.specialSkill}技能！`);
+            super.heal();
+        }
+    }
+
+    let dragonBoss = new Boss("火焰巨龙", 50, "火焰吐息", 1000, "烈焰风暴", "困难");
+    dragonBoss.useSpecialSkill();
+
+    // 异步操作示例
+    console.log("游戏开始");
+
+    setTimeout(function() { 
+        console.log("Boss战开始！") 
+    }, 1500);
+
+    console.log("准备阶段");
+</script>
+
+<body>
+    <h1 id="gameTitle" onclick="alert('游戏说明')">游戏角色面板</h1>
+    <div>
+        <p id="status">当前状态: 正常</p>
+    </div>
+
+    <script>
+        let title = document.getElementById("gameTitle");
+        console.log(title);
+        
+        // 修改游戏标题
+        title.innerHTML = "勇者冒险记";
+        title.style.color = "#FF4500";
+
+        let statusText = document.getElementById("status");
+        statusText.onclick = function() {
+            alert("状态更新！");
+        }
+
+        window.onload = function() {
+            alert("游戏资源加载完成");
+        }
+    </script>
+</body>
