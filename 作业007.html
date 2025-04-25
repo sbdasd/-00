@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub 提交日期 & WakaTime 编程时长</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f9f9f9;
+        }
+        .loading {
+            display: none;
+            color: #666;
+        }
+        .error {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>GitHub 提交日期 & WakaTime 编程时长</h1>
+    <div class="loading">加载中，请稍候...</div>
+    <div class="error"></div>
+
+    <h2>GitHub 提交日期</h2>
+    <table id="commit-dates">
+        <thead>
+            <tr>
+                <th>提交日期</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <h2>WakaTime 编程时长</h2>
+    <table id="wakatime-stats">
+        <thead>
+            <tr>
+                <th>日期</th>
+                <th>编程时长</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        const WAKATIME_API_KEY = 'waka_7da3f7dd-313b-44db-a9b3-8773f5f184e2';
+
+        async function fetchCommitDates(owner, repo) {
+            const url = `https://api.github.com/repos/${owner}/${repo}/commits`;
+            let commitDates = [];
+            let page = 1;
+        
+            try {
+                while (true) {
+                    const response = await fetch(`${url}?page=${page}&per_page=100`);
+                    if (!response.ok) {
+                        throw new Error(`请求失败: ${response.status}`);
+                    }
+        
+                    const commits = await response.json();
+                    if (commits.length === 0) break;
+        
+                    commits.forEach(commit => {
+                        const commitDate = commit.commit.committer.date;
+                        commitDates.push(commitDate);
+                    });
+        
+                    page++;
+                }
+        
+                return commitDates;
+            } catch (error) {
+                console.error('获取提交日期时出错:', error);
+                throw error;
+            }
+        }
+
+        async function fetchWakaTimeStats() {
+            const url = `https://wakatime.com/api/v1/users/current/stats/last_7_days`;
+            const headers = {
+                'Authorization': `Basic ${btoa(WAKATIME_API_KEY)}`
+            };
+
+            try {
+                const response = await fetch(url, { headers });
+                if (!response.ok) {
+                    throw new Error(`请求失败: ${response.status}`);
+                }
+
+                const data = await response.json();
+                return data.data;
+            } catch (error) {
+                console.error('获取WakaTime数据时出错:', error);
+                throw error;
+            }
+        }
+
+        async function fetchWakaTimeToday() {
+            const url = 'https://wakatime.com/api/v1/users/current/status_bar/today';
+            const headers = {
+                'Authorization': `Basic ${btoa(WAKATIME_API_KEY)}`
+            };
+
+            try {
+                const response = await fetch(url, { headers });
+                if (!response.ok) {
+                    throw new Error(`请求失败: ${response.status}`);
+                }
+
+                const data = await response.json();
+                return data.data.grand_total.text; // 返回今日总时长
+            } catch (error) {
+                console.error('获取今日WakaTime数据时出错:', error);
+                throw error;
+            }
+        }
+
+        async function displayCommitDates() {
+            const loading = document.querySelector('.loading');
+            const errorDiv = document.querySelector('.error');
+            const datesTableBody = document.querySelector('#commit-dates tbody');
+
+            loading.style.display = 'block';
+            errorDiv.style.display = 'none';
+            datesTableBody.innerHTML = '';
+
+            try {
+                const owner = "sbdasd";  // 替换为仓库所有者
+                const repo = "-00";      // 替换为仓库名称
+                const dates = await fetchCommitDates(owner, repo);
+
+                dates.forEach(date => {
+                    const row = document.createElement('tr');
+                    const cell = document.createElement('td');
+                    cell.textContent = date;
+                    row.appendChild(cell);
+                    datesTableBody.appendChild(row);
+                });
+            } catch (error) {
+                errorDiv.textContent = `错误: ${error.message}`;
+                errorDiv.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        async function displayWakaTimeStats() {
+            const loading = document.querySelector('.loading');
+            const errorDiv = document.querySelector('.error');
+            const statsTableBody = document.querySelector('#wakatime-stats tbody');
+
+            loading.style.display = 'block';
+            errorDiv.style.display = 'none';
+            statsTableBody.innerHTML = '';
+
+            try {
+                const stats = await fetchWakaTimeStats();
+                const todayTotal = await fetchWakaTimeToday(); // 获取今日总时长
+
+                // 显示总时长
+                const codingTimeDiv = document.createElement('div');
+                codingTimeDiv.innerHTML = `
+                    <p>🕒 最近7天: ${stats.human_readable_total}</p>
+                    <p>📅 日均: ${stats.human_readable_daily_average}</p>
+                    <p>📆 今日: ${todayTotal}</p> <!-- 添加今日总时长 -->
+                `;
+                statsTableBody.appendChild(codingTimeDiv);
+
+                // 显示编程语言时长
+                stats.languages.forEach(stat => {
+                    const row = document.createElement('tr');
+                    const dateCell = document.createElement('td');
+                    const durationCell = document.createElement('td');
+
+                    dateCell.textContent = stat.name;
+                    durationCell.textContent = stat.text;
+
+                    row.appendChild(dateCell);
+                    row.appendChild(durationCell);
+                    statsTableBody.appendChild(row);
+                });
+            } catch (error) {
+                errorDiv.textContent = `错误: ${error.message}`;
+                errorDiv.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        // 页面加载完成后执行
+        window.onload = async () => {
+            await displayCommitDates();
+            await displayWakaTimeStats();
+        };
+    </script>
+</body>
+</html>
