@@ -1,0 +1,36 @@
+import subprocess
+import os
+
+def pdf_to_html5(pdf_path, output_dir):
+    """
+    将PDF文件转换为HTML5格式
+    :param pdf_path: PDF文件路径
+    :param output_dir: 输出目录
+    :return: 生成的HTML文件路径
+    """
+    # 检查pdf2htmlEX是否安装
+    try:
+        # 使用pdf2htmlEX进行转换
+        cmd = f'pdf2htmlEX "{pdf_path}" --dest-dir "{output_dir}"'
+        subprocess.run(cmd, shell=True, check=True)
+        
+        # 获取生成的HTML文件名（与PDF同名）
+        pdf_name = os.path.splitext(os.path.basename(pdf_path))[0]
+        html_path = os.path.join(output_dir, f"{pdf_name}.html")
+        
+        return html_path
+    except subprocess.CalledProcessError as e:
+        print(f"转换失败: {e}")
+        return None
+    except FileNotFoundError:
+        print("未找到pdf2htmlEX，请先安装")
+        return None
+
+# 使用示例
+if __name__ == "__main__":
+    pdf_file = "example.pdf"  # 替换为你的PDF文件路径
+    output_folder = "output"   # 输出目录
+    
+    result = pdf_to_html5(pdf_file, output_folder)
+    if result:
+        print(f"转换成功，HTML文件已保存到: {result}")

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们</title>
+    <!-- 引入 React 和 ReactDOM -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <!-- 引入 Babel 来转换 JSX (可选，但为了简单起见这里使用) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <!-- 这是React组件将要渲染到的地方 -->
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // 假设 AboutPage.js 和 index.html 在同一个目录下
+      // 在实际项目中，你会使用模块打包工具如Webpack或Parcel来处理导入
+      // 为了简单演示，我们直接在这里定义组件或通过 <script type="module"> 引入
+
+      // 如果 AboutPage.js 是一个模块，你需要调整引入方式
+      // 但对于这个简单示例，我们可以直接在这里重定义组件
+      function AboutPage() {
+        return (
+          <div>
+            <h1>关于我们</h1>
+            <p>这是一个使用 Next.js 创建的示例“关于”页面。</p>
+          </div>
+        );
+      }
+
+      // 将组件渲染到DOM中
+      ReactDOM.render(
+        <AboutPage />,
+        document.getElementById('root')
+      );
+    </script>
+</body>
+</html>

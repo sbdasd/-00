@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub 提交日期</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .loading {
+            display: none;
+            color: #666;
+        }
+        .error {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>GitHub 提交日期</h1>
+    <div class="loading">加载中，请稍候...</div>
+    <div class="error"></div>
+    <ul id="commit-dates"></ul>
+
+    <script>
+        async function fetchCommitDates(owner, repo) {
+            const url = `https://api.github.com/repos/${owner}/${repo}/commits`;
+            let commitDates = [];
+            let page = 1;
+
+            try {
+                while (true) {
+                    const response = await fetch(`${url}?page=${page}&per_page=100`);
+                    if (!response.ok) {
+                        throw new Error(`请求失败: ${response.status}`);
+                    }
+
+                    const commits = await response.json();
+                    if (commits.length === 0) break;
+
+                    commits.forEach(commit => {
+                        const commitDate = commit.commit.committer.date;
+                        commitDates.push(commitDate);
+                    });
+
+                    page++;
+                }
+
+                return commitDates;
+            } catch (error) {
+                console.error('获取提交日期时出错:', error);
+                throw error;
+            }
+        }
+
+        async function displayCommitDates() {
+            const loading = document.querySelector('.loading');
+            const errorDiv = document.querySelector('.error');
+            const datesList = document.getElementById('commit-dates');
+
+            loading.style.display = 'block';
+            errorDiv.style.display = 'none';
+            datesList.innerHTML = '';
+
+            try {
+                const owner = "sbdasd";  // 替换为仓库所有者
+                const repo = "-00";      // 替换为仓库名称
+                const dates = await fetchCommitDates(owner, repo);
+
+                dates.forEach(date => {
+                    const li = document.createElement('li');
+                    li.textContent = date;
+                    datesList.appendChild(li);
+                });
+            } catch (error) {
+                errorDiv.textContent = `错误: ${error.message}`;
+                errorDiv.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        // 页面加载完成后执行
+        window.onload = displayCommitDates;
+    </script>
+</body>
+</html>

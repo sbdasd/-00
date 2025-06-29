@@ -1,0 +1,44 @@
+import aiohttp
+import asyncio
+
+async def get_commit_dates(owner, repo):
+    """
+    获取指定GitHub仓库的所有提交日期
+    :param owner: 仓库所有者
+    :param repo: 仓库名称
+    :return: 提交日期列表
+    """
+    url = f"https://api.github.com/repos/{owner}/{repo}/commits"
+    commit_dates = []
+    page = 1
+
+    async with aiohttp.ClientSession() as session:
+        while True:
+            async with session.get(url, params={'page': page, 'per_page': 100}) as response:
+                if response.status != 200:
+                    print(f"请求失败: {response.status}")
+                    break
+
+                commits = await response.json()
+                if not commits:
+                    break
+
+                for commit in commits:
+                    commit_date = commit['commit']['committer']['date']
+                    commit_dates.append(commit_date)
+
+                page += 1
+
+    return commit_dates
+
+# 使用示例
+async def main():
+    owner = "octocat"  # 替换为仓库所有者
+    repo = "Hello-World"  # 替换为仓库名称
+    dates = await get_commit_dates(owner, repo)
+    print("提交日期：")
+    for date in dates:
+        print(date)
+
+# 运行异步主函数
+asyncio.run(main())
